@@ -1,0 +1,27 @@
+ALTER TABLE `products` ADD `products_barcode` VARCHAR(128) NULL DEFAULT NULL ;
+
+CREATE TABLE IF NOT EXISTS `pos_orders` (
+  `orders_id` int(11) NOT NULL,
+  `staff_name` varchar(64) NOT NULL,
+  PRIMARY KEY (`orders_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+SELECT @ZXconfig:=configuration_group_id
+FROM configuration_group
+WHERE configuration_group_title= 'ZX Point of Sale'
+LIMIT 1;
+DELETE FROM configuration WHERE configuration_group_id = @ZXconfig AND configuration_group_id != 0;
+DELETE FROM configuration_group WHERE configuration_group_id = @ZXconfig AND configuration_group_id != 0;
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order, visible) VALUES (NULL, 'ZX Point of Sale', 'ZX Point of Sale', '1', '1');
+SET @ZXconfig=last_insert_id();
+UPDATE configuration_group SET sort_order = @ZXconfig WHERE configuration_group_id = @ZXconfig;
+INSERT INTO configuration (configuration_id, configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES 
+(NULL, 'ZX Point of Sale Version', 'ZX_POS_VERSION', '1.2', 'Currently using: <strong>v1.3</strong><br />Module brought to you by <a href="https://zenexpert.com" target="_blank">ZenExpert</a>', @ZXconfig, 0, NOW(), NULL, 'zen_cfg_select_option(array(\'1.2\'),'),
+(NULL, 'ZX Point of Sale', 'ZX_POINT_OF_SALE_STATUS', 'true', 'Activate ZX Point of Sale', @ZXconfig, 10, NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),'),
+(NULL, 'Customer account Password', 'POS_CUSTOMER_LOGIN_PASSWORD', '', 'Please set your Master Password here. It will be used to log in as existing customer. It MUST match any admin password. Don\'t forget to update it every 90 days.', @ZXconfig, 20, NOW(), NULL, NULL),
+(NULL, 'Guest account email', 'POS_DUMMY_LOGIN_EMAIL', '', 'Enter the email address for the in-store purchases account (must already be created - refer to documentation)', @ZXconfig, 25, NOW(), NULL, NULL),
+(NULL, 'POS Order Status Selection', 'POS_ORDER_STATUS_SELECTION', '', 'Enter a comma-separated list of order status <strong>IDs</strong> to choose from when checking out from ZX POS', @ZXconfig, 30, NOW(), NULL, NULL);
+
+# Register the configuration page for Admin Access Control
+DELETE FROM admin_pages WHERE page_key = 'configZXPOS';
+INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configZXPOS','BOX_CONFIGURATION_ZX_POS','FILENAME_CONFIGURATION',CONCAT('gID=',@ZXconfig),'configuration','Y',@ZXconfig);

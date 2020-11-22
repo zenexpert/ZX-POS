@@ -1,0 +1,90 @@
+/**
+ * @package posinvoice
+ * @ignore
+ * @access private
+ * @copyright Copyright 2003-2011 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: posinvoice.css 1 2015-07-28 02:50:05Z ZenExpert $
+ */
+a {
+	color:#0000ff;
+	text-decoration:none;
+}
+a, body, html, table {
+	font:normal normal 11px Verdana, sans-serif;
+}
+a:hover {
+	color:#0000ff;
+	text-decoration:underline;
+}
+body {
+	background-color:#ffffff;
+	color:#333333;
+	margin:0;
+}
+.clearBoth {
+	clear: both;
+}
+td.alert, span.alert {
+	color:#ff0000;
+	font-weight:bold;
+}
+td.attributeBoxContent {
+	background-color:#dcdbd1;
+	color:#333333;
+}
+td.ot-subtotal-Amount, td.ot-cod-fee-Amount, td.ot-group-pricing-Amount, td.ot-gv-Amount, td.ot-loworderfee-Amount, td.ot-shipping-Amount, td.ot-subtotal-Amount, td.ot-tax-Amount, td.ot-coupon-Amount {
+}
+td.ot-subtotal-Text, td.ot-cod-fee-Text, td.ot-total-Text, td.ot-group-pricing-Text, td.ot-gv-Text, td.ot-loworderfee-Text, td.ot-shipping-Text, td.ot-subtotal-Text, td.ot-tax-Text, td.ot-coupon-Text {
+	font-weight:bold;
+}
+td.ot-total-Amount {
+	border-top:1px solid #9a9a9a;
+	font-weight:bold;
+}
+tr.attributeBoxContent {
+	background-color:#dcdbd1;
+	color:#333333;
+}
+.attributeBoxContent {
+	background-color:#dcdbd1;
+	color:#333333;
+}
+.attributes-even {
+	background-color:#ffffff;
+}
+.attributes-odd {
+	background-color:#f7f6ef;
+}
+.dataTableContent {
+	color:#333333;
+}
+.dataTableHeadingContent {
+	color:#333333;
+	font-weight:bold;
+}
+.dataTableHeadingRow {
+	background-color:#d7d6cc;
+}
+.dataTableRow {
+	background-color:#f2f1ee;
+}
+.errorText {
+	color:#ff0000;
+}
+h1, .pageHeading {
+	color:#003D00; /*727272*/
+	font-size:16px;
+	font-variant:small-caps;
+	font-weight:bold;
+}
+.smallText {
+	font-size:9px;
+}
+.specialPrice {
+	color:#ff6600;
+}
+.hiddenField {
+	display: none;
+}

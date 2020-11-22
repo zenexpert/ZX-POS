@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>ZX Point of Sale Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		#sbaInstall { display: none; }
+		.visible { display: block !important; }
+	</style>
+	<script>
+		function toggle() {
+			var element = document.getElementById("sbaInstall");
+
+			if (element.classList) {
+				element.classList.toggle("visible");
+			} else {
+				var classes = element.className.split(" ");
+				var i = classes.indexOf("visible");
+
+				if (i >= 0)
+					classes.splice(i, 1);
+				else
+					classes.push("visible");
+				element.className = classes.join(" ");
+			}
+		}
+	</script>
+</head>
+
+
+<body>
+  <div class="container">
+	
+		<h3 class="center alt">ZX Point of Sale Documentation v1.3</h3>
+		
+		<hr>
+		
+		<h1 class="center">ZX Point of Sale</h1>
+		
+		<div class="borderTop">
+			<div class="span-8 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Version: 1.3 (Zen Cart 1.5.7a)<br>
+					On: Nov 21, 2020<br>
+					By: Leonard Blauhorn<br>
+					Contact: <a href="mailto:info@zenexpert.com">e-mail me</a>
+					</strong>
+				(considered as quote requests)<br><br>
+					<a href="https://www.paypal.me/ZenExpert/">Donations welcome!</a></p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-10 last">
+				<p class="prepend-top append-0">Thank you for downloading this plugin. Please note that this plugin is installed and used at your own risk. If you are unsure of how to complete the installation procedure documented below, please seek support in the official Forum section (keep in mind Forums are public and work on voluntary basis) or contact me for paid assistance. ZenExpert takes no responsibility for problems related to the installation or use of this plugin.</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#install">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#issues">Common Issues</a></li>
+            <li><a href="#credits">Sources and Credits</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="#license">License</a></li>
+			
+		</ol>
+		
+<hr>
+		
+		<h3 id="install"><strong>Installing</strong> - <a href="#toc">top</a></h3>
+	  <p><strong><font color="red">ZX Point of Sale v1.3 is designed to work with Zen Cart 1.5.7a (latest version at the time of release). It PROBABLY can be used with older versions of Zen Cart, but installation is done at your own risk and no support will be provided in such cases.</font></strong></p>
+		<p><strong>Before you proceed, make a full backup of your site's files AND database. Installation is done at your own risk.</strong></p>
+		<p>Unzip the files from &quot;files&quot; directory to your computer. Connect to your server via FTP. Check your admin directory name and rename the one in this package accordingly. Find and rename all instances of YOUR_TEMPLATE to the actual directory name of the template you're using. Now, upload your files using your FTP client (I recommend using Filezilla) to the <strong>store root</strong>. Be careful, the store root directory on the server is where your store is installed, not necessarily domain root.</p>
+	  <p>There are several files that get overwritten and are considered as core files:</p>
+		<ul>
+		  <li>	includes/classes/shopping_cart.php</li>
+			<li>includes/modules/pages/checkout_confirmation/header_php.php</li>
+			<li>includes/modules/pages/checkout_success/header_php.php</li>
+		  <li>includes/modules/pages/login/header_php.php</li>
+		  <li>includes/modules/pages/logoff/header_php.php</li>
+		  <li>includes/modules/pages/shopping_cart/header_php.php</li>
+		  <li>YOUR_ADMIN/includes/header.php</li>
+		  <li>YOUR_ADMIN/includes/modules/product/collect_info.php</li>
+		  <li>YOUR_ADMIN/includes/modules/update_product.php</li>
+      </ul>
+<p>In case you have made any changes to this file, make sure you merge it carefully (you can use a tool like <a href="http://winmerge.org/?lang=en" target="_blank">WinMerge</a>). All changes have been commented. Otherwise, you can simply overwrite.</p>
+<p>After all files are in place, log in to your admin section and go to Tools-&gt;Install SQL Patches. Open the sql.txt that comes with this plugin, copy the contents, paste it in the admin section and click the &quot;send&quot; button.</p>
+<p>Go to admin-&gt;Modules-&gt;Shipping, locate &quot;In-store Pickup&quot;, click on it and click the &quot;install&quot; button on the right. This is a dedicated shipping module for this plugin and it will only show when going through checkout using the POS. It will not show for standard online customers.</p>
+<p>Go to admin-&gt;Modules-&gt;Payment, locate "In Store Payment", click on it and click the &quot;install&quot; button on the right. This is a dedicated payment module for this plugin and it will only show when going through checkout using the POS. It will not show for standard online customers.</p>
+<p>Go to the store frontend and create a &quot;dummy&quot; account for purchases that will not be linked to any customer account. You can call it &quot;instore sales&quot;, set email to whatever you like (preferebaly something on your domain) and set it to the same state as your store is located in (for tax related calculation). This account will be used for all purchases where you select &quot;Guest&quot; and don't need customer's details to checkout.</p>
+	  <p>Go to admin-&gt;Configuration-&gt;ZX Point of Sale and enter the Customer account password. This is a Master Password that MUST be used by any of your admin accounts. You can create a separate admin profile for these purposes or just use your own password. Next, enter the Guest account email address which is actually the email address used to create the &quot;dummy&quot; account.<br /><strong>Remember</strong> to update this entry every time you change the admin's password. If you create a separate admin profile, keep in mind the password will expire in 90 days.<br><strong>IMPORTANT: </strong>you must go to admin->Configuration->My Store and set either "Customer Place Order: Single Admin ID" or "Customer Place Order: Admin Profiles" to enable using Master Password.</p>
+
+	  <div class="highlight">
+		  <h4>Stock by Attributes plugin support</h4>
+		  <p><a onclick="toggle()">Click here IF your site uses the Stock by Attributes plugin (SBA)</a></p>
+		  <div id="sbaInstall">
+			  <p>If you're using the Stock by Attributes plugin (SBA), this plugin supports it, but requires a few modifications to add a barcode field for SBA items. SBA comes with "Custom ID" field which is used as model number by ZX POS. If you want to use barcodes, some of the SBA files need to be modified.</p>
+			  <p>Open the "SBA support" folder that comes with this plugin. You'll see there is a SBA zip file included - this is <strong>reference only</strong> because the modifications were based on THAT version of SBA. However, the SBA plugin is updated quite frequently so your files might not be the same - thus the reference file.</p>
+			  <p>If you didn't modify the SBA plugin and if you're sure your site is using the exact same version of SBA, you can simply upload the contents of "files" directory to your store's root (remember to rename YOUR_ADMIN directory).<br>In case you're not sure about your SBA version, simply compare the files with the ones you have on your server and merge the changes. All changes are commented.</p>
+			  <p>After all files are in place, log in to your admin section and go to Tools-&gt;Install SQL Patches. Open the sql-SBA.txt that comes with this plugin, copy the contents, paste it in the admin section and click the &quot;send&quot; button.</p>
+		  </div>
+	  </div>
+<hr>
+        
+        <h3 id="usage"><strong>Usage</strong> - <a href="#toc">top</a></h3>
+		<p>You need to log in to the admin section and click on the icon in the header section. This is the ONLY way to access POS features. The POS page is protected and can not be accessed without first logging into the admin section.</p>
+		<p>When adding products to your catalog, you can use your barcode scanner to enter the barcode.</p>
+		<p>You can add discounts directly in the POS interface. You can only enter numeric values, percentages will not be calculated.</p>
+		<p>The plugin comes with one dedicated shipping module and one dedicated payment module (In-store Pickup and In Store Payment). Both will be automatically selected during checkout, but you can select any of the other modules you have installed and use it for checkout.</p>
+		<p>You can print an invoice from the final checkout page (checkout_success). The plugin comes with a generic template which you can easily modify to suit your needs. There are two files you would need to edit:</p>
+		<ul>
+		  <li>store_root/posinvoice.php</li>
+		  <li>store_root/posinvoice.css<br>
+    </li>
+	</ul>
+	  <p>You can watch a demo video <a href="https://www.youtube.com/watch?v=ijqkSmRHBV8" target="_blank">here</a>.</p>
+<hr>
+        
+        <h3 id="issues"><strong>Common Issues</strong> - <a href="#toc">top</a></h3>
+        
+        <p>I tested the plugin many times and it was also checked by other people, so it should work when you are using a well coded template and plugins. The only issues encountered so far were jQuery conflicts caused by badly coded templates. If that occurs, please make sure your jQuery scripts are loading properly and in a proper order.</p>
+	  <p>If your site uses CSS/JS Loader, you will have to build the auto-loaders to avoid conflicts or broken jQuery scripts.</p>
+	  <p>If your site uses any of the available checkout plugins (OPC, FEC, FEAC...), I suggest deleting auto_loaders/config.pos.shipping_observer.php file. By doing this, the POS In Store Pickup and In Store Payment modules will <strong>not</strong> be pre-selected.</p>
+<hr>
+     	
+<h3 id="credits"><strong>Sources and Credits</strong> - <a href="#toc">top</a></h3>
+        
+        External libraries used in this plugin:
+    <ul>
+        <li><a href="http://jQuery.com/">jQuery</a></li>
+        <li><a href="https://github.com/julien-maurel/jQuery-Scanner-Detection" target="_blank">jQuery Scanner Detection</a></li>
+        <li><a href="https://harvesthq.github.io/chosen/" target="_blank">jQuery Chosen</a></li>
+    </ul>
+
+	  <p><em>If you find this module useful,<strong> please consider donating</strong> via <a href="https://www.paypal.me/ZenExpert/">PayPal</a> to ensure this module is supported and improved ($10 - $30 recommended).</em></p>
+<hr>
+        
+    <h3 id="support"><strong>Support</strong> - <a href="#toc">top</a></h3>
+        
+      <p>This plugin comes with limited support. There is an official support thread on the public Forum, but keep in mind that support is on voluntary basis so you might have to wait a while before your question gets answered.</p>
+    <p>Please note that I don't provide support for this module via email for free. Any private support is considered commercial work and will be billed at my standard hourly rate.</p>
+      <p><strong>Stay up-to-date</strong>: you can always find the most recent version <a href="http://zenexpert.com/zen-cart-point-of-sale" target="_blank">here</a>.</p>
+	  <p>One question that is often asked - "will the plugin work with a new (future) version of Zen Cart?". Well, give me a minute to pull out my magic crystal ball and see what the future brings... There is no way to guarantee future compatibility, but this IS an actively maintained plugin so it <em>probably</em> will be updated to be compatible with future versions of Zen Cart.</p>
+
+	  <hr>
+
+
+<h3 id="license"><strong>License</strong> - <a href="#toc">top</a></h3>
+<p>The plugin is licensed under GPL.</p>
+
+<hr>
+
+	  <p>Once again, thank you for downloading this file. As I said at the beginning, I'd be glad to help you if you have any questions relating to this plugin. No guarantees, but I'll do my best to assist.</p>
+		
+		<p class="append-bottom alt large"><strong>Leonard</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
